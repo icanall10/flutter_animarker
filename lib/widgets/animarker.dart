@@ -362,19 +362,7 @@ class AnimarkerState extends State<Animarker> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(Animarker oldWidget) {
     if (!setEquals(oldWidget.markers, widget.markers)) {
-	  if (widget.markers.length < oldWidget.markers.length) {
-        widget.updateMarkers(oldWidget.markers, widget.markers);
-        return;
-      }
-      
-      if (widget.markers.length > oldWidget.markers.length) {
-        _markers.clear();
-      }
-
-      //Manage new markers updates after setState had gotten called
-      widget.markers.difference(_markers.set).forEach((marker) async {
-        await _controller.pushMarker(marker);
-      });
+      widget.updateMarkers(oldWidget.markers, widget.markers);
     }
 
     if (widget.isActiveTripHasChanged(oldWidget)) {
